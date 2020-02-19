@@ -11,6 +11,8 @@ public class GameOfLife {
     int gridLength;
 
     public GameOfLife(){
+        // Zet de inhoud van het bestand zo snel mogelijk over naar een intern formaat
+        // bijvoorbeeld een arraylist
         this.file = new File("src/Games/input.txt");
         this.gridWidth = 0;
         this.gridLength = 0;
@@ -20,12 +22,16 @@ public class GameOfLife {
         Scanner input = new Scanner(System.in);
         int generation = 1;
 
+        // Zeker in dit soort algorithmische oefeningen hoef je niet de gebruiker
+        // om input te vragen, gewoon gaan!
         System.out.println("Press enter to generate generations");
         String showNextGeneration = input.nextLine();
 
+        // Als je de regels al naar een intern formaat hebt, dan
+        // kun je onderstaande versimpelen naar 1 stap.
         grid = getGridSize(declareScanner(file));
         grid = setValues(declareScanner(file));
-
+ 
         while (showNextGeneration.equals("")){
             System.out.println("Generation number " + (generation) + ":");
             printArray(grid);
@@ -47,6 +53,8 @@ public class GameOfLife {
             grid[length] = array;
             length++;
         }
+        // grid verwijst naar een global var, nooit teruggeven uit een
+        // functie.... je hebt hem immers al
         return grid;
     }
 
@@ -86,6 +94,8 @@ public class GameOfLife {
             for (int j = 0; j < oldGeneration[i].length; j++) {
                 int surroundingLiving = 0;
 
+                // Wellicht kun je het bekijken van de buren versimpelen naar een functie die 
+                // je per cel aanroept?
                 // cell before
                 if (j > 0){
                     if (oldGeneration[i][j-1] == '#'){
@@ -94,6 +104,7 @@ public class GameOfLife {
                 }
 
                 // cell after
+                // Wat is 99 hier? Dit lijkt een hardcoded boundary?
                 if (j < 99){
                     if (oldGeneration[i][j+1] == '#'){
                         surroundingLiving++;
@@ -145,3 +156,4 @@ public class GameOfLife {
         return newArray;
     }
 }
+// Goed gedaan!
